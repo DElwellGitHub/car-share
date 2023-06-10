@@ -15,6 +15,7 @@ def main():
     print(car1.nickname)
     print(car1.miles_driven_life)
     print(car1.city)
+    print(car1.state)
 
 
 if __name__=='__main__':
