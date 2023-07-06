@@ -1,5 +1,8 @@
 import datetime as dt
 class Car:
+    '''
+    The Car class will be the parent class for all vehicles (EV class or GasCar class) that can be rented.
+    '''
     def __init__(self, 
                  nickname:str,
                  make:str,
@@ -11,13 +14,18 @@ class Car:
                  city:str,
                  state:str):
         
+        #Valid locations {state:city}
+        valid_locations = {'Pennsylvania':'Philadelphia',
+                           'New York':'New York',
+                           'Massachusetts':'Boston'}
+
         #Assertions
         assert len(nickname)<=14, 'Nickname must be 14 characters or less.'
         assert int(year)>1980, 'Car is too old.'
-        assert int(year)<=int(dt.datetime.now().strftime('%Y'))+1, 'Car year is incorrect'
+        assert int(year)<=int(dt.datetime.now().strftime('%Y'))+1, 'Car year is in the future. Not possible!'
         assert int(miles_driven_life) >= 0, 'Miles driven cannot be negative.'
         assert int(accidents_life) >=0, 'Accidents cannot be negative.'
-        
+        assert city in valid_locations[state], 'Not a valid location'
 
         #Attributes
         self.nickname = nickname

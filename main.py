@@ -1,10 +1,10 @@
 from car import Car
 
 def main():
-    kwargs = {'nickname':'Mystery Machine',
+    kwargs = {'nickname':'Mysty',
               'make':'volkswagen',
               'model':'vw bus',
-              'year':'1969',
+              'year':'1999',
               'color':'tie dye',
               'miles_driven_life':200000,
               'accidents_life':1,
@@ -16,6 +16,7 @@ def main():
     print(car1.miles_driven_life)
     print(car1.city)
     print(car1.state)
+    print(car1.city)
 
 
 if __name__=='__main__':
