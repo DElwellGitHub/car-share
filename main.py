@@ -19,8 +19,10 @@ def main():
     #print(car1.city)
     #car1.all
     #print(car1.city)
-    car1.city='Boston'
-    print(car1.state)
+    car1.state='New York'
+    print(car1.city)
+    car1.increase_accidents(-1)
+    print(car1.accidents_life)
 
 if __name__=='__main__':
     main()
