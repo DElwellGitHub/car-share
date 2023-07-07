@@ -14,10 +14,13 @@ def main():
 
     print(car1.nickname)
     print(car1.miles_driven_life)
-    print(car1.city)
+    #print(car1.city)
+    #print(car1.state)
+    #print(car1.city)
+    #car1.all
+    #print(car1.city)
+    car1.city='Boston'
     print(car1.state)
-    print(car1.city)
-
 
 if __name__=='__main__':
     main()
