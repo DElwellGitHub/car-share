@@ -3,6 +3,8 @@ class Car:
     '''
     The Car class will be the parent class for all vehicles (EV class or GasCar class) that can be rented.
     '''
+    all = []
+    number_of_cars = 0
     def __init__(self, 
                  nickname:str,
                  make:str,
@@ -22,12 +24,14 @@ class Car:
         #Nickname character limit
         self.__nickname_char_limit = 30
         self.__nickname_assert = f'Nickname must be {self.__nickname_char_limit} characters or less.'
+        self.__name_used_assert = 'Nickname already used for another car'
 
         #Oldest car year accepted
         self.__oldest_car_year = 1980
 
         #Assertions
         assert len(nickname)<=self.__nickname_char_limit, self.__nickname_assert
+        assert nickname not in self.all, self.__name_used_assert
         assert int(year)>=self.__oldest_car_year, 'Car is too old.'
         assert int(year)<=int(dt.datetime.now().strftime('%Y'))+1, 'Car year is in the future. Not possible!'
         assert int(miles_driven_life) >= 0, 'Miles driven cannot be negative.'
@@ -45,6 +49,27 @@ class Car:
         self.__city = city
         self.__state = state
 
+        #Add one to number of unique nicknames of cars
+        if self.nickname not in self.all:
+            self.add_car()
+
+        #Add nickname to list of all
+        self.all.append(self.__nickname)
+
+    @classmethod
+    def number_of_cars_(cls):
+        return cls.number_of_cars
+    @classmethod
+    def add_car(cls):
+        cls.number_of_cars += 1
+    
+    #Representation of car
+    def __repr__(self):
+        '''
+        Define how we represent car when it is called.
+        '''
+        return f'''Car: {self.nickname}, {self.make}, {self.model}, {self.year}, {self.color}, miles driven: {self.miles_driven_life}, accidents: {self.accidents_life}, location: {self.city}, {self.state}'''
+    
     #Nickname of car
     @property
     def nickname(self):
@@ -53,8 +78,12 @@ class Car:
     def nickname(self, value):
         if len(value)> self.__nickname_char_limit:
             raise Exception(self.__nickname_assert)
+        elif value in self.all:
+            raise Exception(self.__name_used_assert)
         else:
+            self.all.remove(self.__nickname)
             self.__nickname = value
+            self.all.append(value)
     
     #Make of car
     @property
@@ -95,7 +124,6 @@ class Car:
             raise ValueError('Miles incrememnt must be positive number value')
         else:
             self.__miles_driven_life += miles_increment 
-
 
     #Accidents Life of car
     @property

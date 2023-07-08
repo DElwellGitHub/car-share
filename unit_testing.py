@@ -4,6 +4,9 @@ from car import Car
 class TestCar(unittest.TestCase):
     
     def setUp(self):
+        Car.all = []
+        Car.number_of_cars = 0
+        
         self.car_1 = Car('Mystery Machine',
                          'Saturn',
                          'L-Series',
@@ -24,6 +27,9 @@ class TestCar(unittest.TestCase):
                          'New York City',
                          'New York')
         
+    def tearDown(self):
+        pass
+
     def test_change_nickname(self):
         
         #Simple name change testing
@@ -44,6 +50,9 @@ class TestCar(unittest.TestCase):
         with self.assertRaises(Exception):
             self.car_2.nickname = 'ThisNameisTooManyCharactersLongforNickname!'
 
+        #Try changing to a name that is already used
+        with self.assertRaises(Exception):
+            self.car_1.nickname = 'My Fav Car'
 
     def test_change_color(self):
         
@@ -215,6 +224,20 @@ class TestCar(unittest.TestCase):
         new_state = 'Westeros'
         with self.assertRaises('Exception'):
             self.car_1.stat = new_state
+
+    def test_all_attribute(self):
+        #Test that "all" attribute works fine
+        self.assertEqual(Car.all, self.car_1.all,self.car_2.all)
+
+    def test_num_cars(self):
+        '''
+        Test that number of cars classs attribute works fine
+        '''
+        self.assertEqual(2,
+                         Car.number_of_cars)
+        self.assertEqual(2,
+                         self.car_1.number_of_cars,
+                         self.car_2.number_of_cars)
 
 if __name__=='__main__':
     unittest.main()
