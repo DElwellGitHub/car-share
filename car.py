@@ -90,7 +90,8 @@ class Car:
         else:
             self.__miles_driven_life = value
     def increase_miles(self,miles_increment):
-        if miles_increment < 0:
+        if (type(miles_increment) is not int 
+            and type(miles_increment) is not float) or miles_increment < 0:
             raise ValueError('Miles incrememnt must be positive number value')
         else:
             self.__miles_driven_life += miles_increment 
