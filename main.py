@@ -1,4 +1,5 @@
 from car import Car
+from ev_car import evCar
 
 def main():
     kwargs = {'nickname':'Mysty',
@@ -12,7 +13,7 @@ def main():
               'state':'Pennsylvania'}
     car1 = Car(**kwargs)
 
-    kwargs = {'nickname':'Mysty',
+    kwargs = {'nickname':'Mysty2',
               'make':'volkswagen',
               'model':'vw bus',
               'year':'1999',
@@ -38,6 +39,23 @@ def main():
     print(Car.all)
     print(car1)
     print(Car.number_of_cars)
+
+
+
+    kwargs = {'nickname':'evcar',
+              'make':'volkswagen',
+              'model':'vw bus',
+              'year':'1999',
+              'color':'tie dye',
+              'miles_driven_life':200000,
+              'accidents_life':1,
+              'city':'Philadelphia',
+              'state':'Pennsylvania',
+              'charge':1}
+    
+    ev_car_1 = evCar(**kwargs)
+    print(ev_car_1)
+    ev_car_1.charge = .5
 
 if __name__=='__main__':
     main()

@@ -50,7 +50,7 @@ class Car:
         self.__state = state
 
         #Add one to number of unique nicknames of cars
-        if self.nickname not in self.all:
+        if self.__nickname not in self.all:
             self.add_car()
 
         #Add nickname to list of all
