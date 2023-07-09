@@ -1,21 +1,22 @@
 import datetime as dt
+from dateutil.relativedelta import relativedelta
 
-class member:
+class Member:
     all = []
     number_of_members = 0
     def __init__(self,
                  first_name,
                  last_name,
-                 city,
-                 state,
-                 date_of_birth,
-                 gender,
-                 email,
-                 phone_number):
+                 date_of_birth:dt.date,
+                 email):
+
+        assert len(first_name) < 20, 'First name must be less than 20 characters.'
+        assert len(last_name) < 20, 'Last name must be less than 20 characters.'
+        assert date_of_birth < dt.date.today() - relativedelta(years=18), 'Must be 18 or older to sign up!'
+
         self.__first_name = first_name
         self.__last_name = last_name
         self.__date_of_birth = date_of_birth
-        self.__gender = gender
         self.__email = email
         self.__sign_up_date = dt.datetime.now()
 
@@ -46,21 +47,22 @@ class member:
     @property
     def first_name(self):
         return self.__first_name
+    @first_name.setter
+    def first_name(self, value):
+        self.__first_name = value
 
     #Last Name
     @property
-    def first_name(self):
+    def last_name(self):
         return self.__last_name
+    @last_name.setter
+    def last_name(self, value):
+        self.__last_name = value
     
     #Date of Birth
     @property
     def date_of_birth(self):
         return self.__date_of_birth
-
-    #Gender
-    @property
-    def gender(self):
-        return self.__gender
 
     #Email
     @property

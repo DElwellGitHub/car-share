@@ -1,5 +1,8 @@
 from car import Car
 from ev_car import evCar
+import datetime as dt
+from dateutil.relativedelta import relativedelta
+from member import Member
 
 def main():
     kwargs = {'nickname':'Mysty',
@@ -56,6 +59,20 @@ def main():
     ev_car_1 = evCar(**kwargs)
     print(ev_car_1)
     ev_car_1.charge = .5
+    print(dt.date.today())
+    print(dt.date.today() - relativedelta(years=18))
+    test_year = dt.date.today() - relativedelta(years=18)
+    test_year_2 = dt.date(year=2008, month=12,day=1)
+    print(test_year_2 < test_year)
 
+
+    kwargs = {'first_name':'John',
+              'last_name':'Smith',
+              'date_of_birth': dt.date(year=2008, month=1, day=1),
+              'email':'john.smith@gmail.com'}
+    
+    member_1 = Member(**kwargs)
+
+    print(member_1.all)
 if __name__=='__main__':
     main()
