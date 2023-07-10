@@ -135,7 +135,7 @@ class Car:
             raise ValueError('Must set number of accidents to integer value of 0 or greater.')
         else:
             self.__accidents_life = value
-    def increase_accidents(self,accident_increment):
+    def increase_accidents(self,accident_increment=1):
         '''
         Record an increase of the number of accidents.
         '''

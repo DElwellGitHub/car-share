@@ -25,7 +25,6 @@ class evCar(Car):
         assert float(charge) <=1, "Value must be positive number between 0 and 1."
         self.__charge = charge
 
-        #TODO - set up methods for charge
         @property
         def charge(self):
             return self.__charge
