@@ -3,7 +3,7 @@ from dateutil.relativedelta import relativedelta
 
 class Member:
     all = []
-    number_of_members = 0
+    number_of_people = 0
     def __init__(self,
                  first_name,
                  last_name,
@@ -21,27 +21,29 @@ class Member:
         self.__sign_up_date = dt.datetime.now()
 
 
-        #Add one to number of unique nicknames of cars
+        #Add one to number of unique members
         if self.__email not in self.all:
-            self.add_member()
-
-        #Add email to list of all
-        self.all.append(self.__email)
+            self.add_list_of_all(self.__email)
+            self.increment_people_count()
 
     @classmethod
-    def number_of_members_(cls):
-        return cls.number_of_members
+    def number_of_people_(cls):
+        return cls.number_of_people
     
     @classmethod
-    def add_member(cls):
-        cls.number_of_members += 1
+    def increment_people_count(cls='Member'):
+        cls.number_of_people += 1
+    
+    @classmethod
+    def add_list_of_all(cls,email):
+        cls.all.append(email)
 
     #Representation of member
-    def __repr__(self):
+    def __repr__(self,designation='Member'):
         '''
         Define how we represent car when it is called.
         '''
-        return f'Member: {self.first_name} {self.last_name}, {self.email}'
+        return f'{designation}: {self.first_name} {self.last_name}, {self.email}'
     
     #First Name
     @property

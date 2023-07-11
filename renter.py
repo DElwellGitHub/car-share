@@ -4,6 +4,8 @@ from dateutil.relativedelta import relativedelta
 from car import Car
 
 class Renter(Member):
+    all = []
+    number_of_people = 0
     def __init__(self,
                  first_name,
                  last_name,
@@ -23,6 +25,15 @@ class Renter(Member):
         self.__accidents = 0
         self.__current_car = None
         self.__last_car = None
+
+        #Add one to number of unique renters
+        if self.__email not in self.all:
+            self.add_list_of_all(self.__email)
+            self.increment_people_count(cls='Renter')
+
+    #Representation of renter
+    def __rep__(self):
+        super.__repr__(self,designation='Renter')
 
     @property
     def number_of_rentals(self):
@@ -48,17 +59,21 @@ class Renter(Member):
     @property
     def current_car(self):
         return self.__current_car
-    @current_car.setter
+    
     def rentCar(self,car_rented):
-        self.__current_car = car_rented.nickname
+        self.increase_rental_count()
+        self.__current_car = car_rented
 
     @property
     def last_car(self):
         return self.__last_car
-    
-    @current_car.setter
-    @last_car.setter
-    def returnCar(self):
+
+    def returnCar(self,
+                  miles_driven,
+                  accidents):
+        if accidents > 0:
+            self.increase_accidents(accidents)
+            self.update_account_balance(2000)
         self.__last_car = self.__current_car
         self.__current_car = None
 

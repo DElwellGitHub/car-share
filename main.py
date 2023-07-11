@@ -3,6 +3,7 @@ from ev_car import evCar
 import datetime as dt
 from dateutil.relativedelta import relativedelta
 from member import Member
+from renter import Renter
 
 def main():
     kwargs = {'nickname':'Mysty',
@@ -68,11 +69,38 @@ def main():
 
     kwargs = {'first_name':'John',
               'last_name':'Smith',
-              'date_of_birth': dt.date(year=2008, month=1, day=1),
+              'date_of_birth': dt.date(year=2002, month=1, day=1),
               'email':'john.smith@gmail.com'}
     
     member_1 = Member(**kwargs)
 
+    kwargs = {'first_name':'Jane',
+              'last_name':'Doe',
+              'date_of_birth': dt.date(year=2002, month=1, day=1),
+              'email':'jane.doe@gmail.com'}
+
+    renter_1 = Renter(**kwargs)
+
+    kwargs = {'first_name':'Bob',
+              'last_name':'Dylan',
+              'date_of_birth': dt.date(year=2002, month=1, day=1),
+              'email':'bob.dylan@gmail.com'}
+
+    renter_2 = Renter(**kwargs)
+
     print(member_1.all)
+    print(renter_1.all)
+    print(Renter.all)
+    print(Renter.number_of_people)
+    print(Member.number_of_people)
+    print(car1)
+    renter_1.rentCar(car1)
+    print(renter_1.current_car)
+    print(type(renter_1))
+    renter_1.returnCar(miles_driven=100,accidents=1)
+    print(renter_1.current_car)
+    print(renter_1.last_car)
+    print(renter_1.number_of_rentals)
+    renter_1.accidents
 if __name__=='__main__':
     main()
