@@ -11,7 +11,8 @@ class evCar(Car):
                  accidents_life,
                  city:str,
                  state:str,
-                 charge:float):
+                 charge:float,
+                 cost_per_hour:float):
         super().__init__(nickname,
                          make,
                          model,
@@ -20,7 +21,8 @@ class evCar(Car):
                          miles_driven_life,
                          accidents_life,
                          city,
-                         state)
+                         state,
+                         cost_per_hour)
         assert float(charge) >=0, "Value must be positive number between 0 and 1."
         assert float(charge) <=1, "Value must be positive number between 0 and 1."
         self.__charge = charge

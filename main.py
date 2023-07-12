@@ -4,6 +4,7 @@ import datetime as dt
 from dateutil.relativedelta import relativedelta
 from member import Member
 from renter import Renter
+from owner import Owner
 
 def main():
     kwargs = {'nickname':'Mysty',
@@ -14,7 +15,8 @@ def main():
               'miles_driven_life':200000,
               'accidents_life':1,
               'city':'Philadelphia',
-              'state':'Pennsylvania'}
+              'state':'Pennsylvania',
+              'cost_per_hour':14.5}
     car1 = Car(**kwargs)
 
     kwargs = {'nickname':'Mysty2',
@@ -25,7 +27,8 @@ def main():
               'miles_driven_life':200000,
               'accidents_life':1,
               'city':'Philadelphia',
-              'state':'Pennsylvania'}
+              'state':'Pennsylvania',
+              'cost_per_hour':13.75}
     car1 = Car(**kwargs)
 
     print(car1.nickname)
@@ -55,7 +58,8 @@ def main():
               'accidents_life':1,
               'city':'Philadelphia',
               'state':'Pennsylvania',
-              'charge':1}
+              'charge':1,
+              'cost_per_hour':12.75}
     
     ev_car_1 = evCar(**kwargs)
     print(ev_car_1)
@@ -97,10 +101,27 @@ def main():
     renter_1.rentCar(car1)
     print(renter_1.current_car)
     print(type(renter_1))
-    renter_1.returnCar(miles_driven=100,accidents=1)
+    renter_1.returnCar(miles_driven=100,accidents=1,hours=7)
     print(renter_1.current_car)
     print(renter_1.last_car)
+    print(renter_1.sign_up_date)
     print(renter_1.number_of_rentals)
     renter_1.accidents
+
+    print(car1.accidents_life)
+    print(car1.miles_driven_life)
+    print(renter_1.account_balance)
+    print(renter_1.first_name)
+
+
+    kwargs = {'first_name':'Bob',
+              'last_name':'Dylan',
+              'date_of_birth': dt.date(year=2002, month=1, day=1),
+              'email':'bob.owner@gmail.com'}
+
+    owner_1 = Owner(**kwargs)
+
+    print(owner_1)
+    print(renter_1)
 if __name__=='__main__':
     main()

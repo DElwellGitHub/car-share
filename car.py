@@ -14,7 +14,8 @@ class Car:
                  miles_driven_life,
                  accidents_life,
                  city:str,
-                 state:str):
+                 state:str,
+                 cost_per_hour:float):
         
         #Valid locations {state:city}
         self.__valid_locations = {'Pennsylvania':'Philadelphia',
@@ -48,6 +49,7 @@ class Car:
         self.__accidents_life = accidents_life
         self.__city = city
         self.__state = state
+        self.__cost_per_hour = cost_per_hour
 
         #Add one to number of unique nicknames of cars
         if self.__nickname not in self.all:
@@ -173,5 +175,10 @@ class Car:
             self.__state = value
             #If you change state, you must change city too
             self.__city = self.__valid_locations[self.__state]
+
+    #Cost per hour
+    @property
+    def cost_per_hour(self):
+        return self.__cost_per_hour
     
 

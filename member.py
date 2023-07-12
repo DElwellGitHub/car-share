@@ -19,6 +19,8 @@ class Member:
         self.__date_of_birth = date_of_birth
         self.__email = email
         self.__sign_up_date = dt.datetime.now()
+        self.__number_of_rentals = 0
+        self.__account_balance = 0
 
 
         #Add one to number of unique members
@@ -39,11 +41,11 @@ class Member:
         cls.all.append(email)
 
     #Representation of member
-    def __repr__(self,designation='Member'):
+    def __repr__(self):
         '''
-        Define how we represent car when it is called.
+        Define how we represent member when it is called.
         '''
-        return f'{designation}: {self.first_name} {self.last_name}, {self.email}'
+        return f'{self.__class__.__name__}: {self.first_name} {self.last_name}, {self.email}'
     
     #First Name
     @property
@@ -75,3 +77,23 @@ class Member:
     @property
     def sign_up_date(self):
         return self.__sign_up_date
+    
+    @property
+    def number_of_rentals(self):
+        return self.__number_of_rentals
+    
+    @property
+    def account_balance(self):
+        return self.__account_balance
+    
+    def increase_rental_count(self,rental_increment=1):
+        '''
+        Increase the number of rentals attributed to member.
+        '''
+        self.__number_of_rentals += rental_increment
+
+    def update_account_balance(self, change):
+        '''
+        Update member's account balance.
+        '''
+        self.__account_balance += change

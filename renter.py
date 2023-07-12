@@ -20,8 +20,6 @@ class Renter(Member):
         self.__date_of_birth = date_of_birth
         self.__email = email
         
-        self.__number_of_rentals = 0
-        self.__account_balance = 0
         self.__accidents = 0
         self.__current_car = None
         self.__last_car = None
@@ -30,52 +28,59 @@ class Renter(Member):
         if self.__email not in self.all:
             self.add_list_of_all(self.__email)
             self.increment_people_count(cls='Renter')
-
-    #Representation of renter
-    def __rep__(self):
-        super.__repr__(self,designation='Renter')
-
-    @property
-    def number_of_rentals(self):
-        return self.__number_of_rentals
-        
-    @property
-    def account_balance(self):
-        return self.__account_balance
         
     @property
     def accidents(self):
         return self.__accidents
 
     def increase_accidents(self,accidents_increment=1):
+        '''
+        Increase number of accidents attributed to renter.
+        '''
         self.__accidents += accidents_increment
-
-    def update_account_balance(self, change):
-        self.__account_balance += change
-
-    def increase_rental_count(self,rental_increment=1):
-        self.__number_of_rentals += 1
 
     @property
     def current_car(self):
         return self.__current_car
     
-    def rentCar(self,car_rented):
-        self.increase_rental_count()
-        self.__current_car = car_rented
-
     @property
     def last_car(self):
         return self.__last_car
+    
+    def rentCar(self,car_rented):
+        '''
+        Renter rents a car
+        '''
+        self.increase_rental_count()
+        self.__current_car = car_rented
 
     def returnCar(self,
                   miles_driven,
+                  hours,
                   accidents):
+        '''
+        Renter returns the car they drove. 
+        '''
         if accidents > 0:
+            #Increase renter's count of accidents
             self.increase_accidents(accidents)
-            self.update_account_balance(2000)
+            #Increase renter's account balance by 2000 (penalty for accident)
+            self.update_account_balance(-2000*accidents)
+            #Increase car's count of accidents
+            self.__current_car.increase_accidents(accident_increment=accidents)
+        
+        #Incrase renter's account balance by hours * cost per hour
+        self.update_account_balance(-1*hours*self.__current_car.cost_per_hour)
+
+        #Increase car's miles driven for life
+        self.__current_car.increase_miles(miles_increment = miles_driven)
+
+        #Make last car be the current car
         self.__last_car = self.__current_car
+
+        #Remove current car
         self.__current_car = None
+        
 
         
 
