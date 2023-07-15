@@ -21,6 +21,7 @@ class Owner(Member):
         self.__email = email
 
         self.__number_of_cars = 0
+        self.__list_of_cars = []
 
         #Add one to number of unique owners
         if self.__email not in self.all:
@@ -31,10 +32,66 @@ class Owner(Member):
     def number_of_cars(self):
         return self.__number_of_cars
     
-    def add_car(self, number_of_cars=1):
-        self.__number_of_cars += number_of_cars
+    @property
+    def list_of_cars(self):
+        return self.__list_of_cars
+    
+    def make_car_available(self, 
+                           car_nickname,
+                           car_increment=1):
+        '''
+        Owner adds a car to his list of available cars that people can rent.
+        '''
+        #Todo: work on these conditions
+        if car_nickname in Car.all:
+            if car_nickname not in self.__list_of_cars:
+                self.__number_of_cars += car_increment
+                self.__list_of_cars.append(car_nickname)
+            else:
+                print('Car is already made available.')
+        else:
+            print('Car is not in the system. Please add it first before activiating.')
+        
+        if car_nickname not in Car.all:
+            print('Car is not in the system!')
+        
 
-    def remove_cars(self, number_of_cars=1):
-        self.__number_of_cars -= number_of_cars
+    def make_car_unavailable(self, 
+                             car_nickname,
+                             car_increment=1):
+        '''
+        Owner makes a car on his list unavailable to rent.
+        '''
+        if car_nickname in Car.all:
+            if car_nickname in self.__list_of_cars:
+                self.__number_of_cars -= car_increment
+                self.__list_of_cars.remove(car_nickname)
+            else:
+                print('Car is already made unavailable.')
+        else:
+            print('Car is not in the system. Please add it first and make it available before trying to remove it..')
 
-
+    def add_car(self,
+                nickname,
+                 make,
+                 model,
+                 year,
+                 color,
+                 miles_driven_life,
+                 accidents_life,
+                 city,
+                 state,
+                 cost_per_hour):
+        '''
+        Owner creates a new car in the system, which he can then add to list of available cars to rent.
+        '''
+        self.latest_car_added = Car(nickname,
+                 make,
+                 model,
+                 year,
+                 color,
+                 miles_driven_life,
+                 accidents_life,
+                 city,
+                 state,
+                 cost_per_hour)

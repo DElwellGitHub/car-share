@@ -1,5 +1,6 @@
 import datetime as dt
 from dateutil.relativedelta import relativedelta
+import re
 
 class Member:
     all = []
@@ -13,6 +14,9 @@ class Member:
         assert len(first_name) < 20, 'First name must be less than 20 characters.'
         assert len(last_name) < 20, 'Last name must be less than 20 characters.'
         assert date_of_birth < dt.date.today() - relativedelta(years=18), 'Must be 18 or older to sign up!'
+        
+        regex_pattern = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        assert re.fullmatch(regex_pattern, email), "Invalid email."
 
         self.__first_name = first_name
         self.__last_name = last_name
