@@ -22,6 +22,7 @@ class Owner(Member):
 
         self.__number_of_cars = 0
         self.__list_of_cars = []
+        self.__latest_car_added = None
 
         #Add one to number of unique owners
         if self.__email not in self.all:
@@ -53,12 +54,9 @@ class Owner(Member):
                 self.__number_of_cars += car_increment
                 self.__list_of_cars.append(car_nickname)
             else:
-                print('Car is already made available.')
+                raise Exception('Car is already made available.')
         else:
-            print('Car is not in the system. Please add it first before activiating.')
-        
-        if car_nickname not in Car.all:
-            print('Car is not in the system!')
+            raise Exception('Car is not in the system. Please add it first before activiating.')
         
 
     def make_car_unavailable(self, 
@@ -72,9 +70,9 @@ class Owner(Member):
                 self.__number_of_cars -= car_increment
                 self.__list_of_cars.remove(car_nickname)
             else:
-                print('Car is already made unavailable.')
+                raise Exception('Car is already made unavailable.')
         else:
-            print('Car is not in the system. Please add it first and make it available before trying to remove it..')
+            raise Exception('Car is not in the system. Please add it first and make it available before trying to remove it..')
 
     def add_car(self,
                  nickname,
@@ -90,7 +88,7 @@ class Owner(Member):
         '''
         Owner registers a car, which he can then add to list of available cars to rent.
         '''
-        self.latest_car_added = Car(nickname,
+        self.__latest_car_added = Car(nickname,
                  make,
                  model,
                  year,
@@ -100,3 +98,6 @@ class Owner(Member):
                  city,
                  state,
                  cost_per_hour)
+    @property
+    def latest_car_added(self):
+        return self.__latest_car_added
