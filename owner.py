@@ -30,10 +30,16 @@ class Owner(Member):
 
     @property
     def number_of_cars(self):
+        '''
+        Return number of cars the owner has registered.
+        '''
         return self.__number_of_cars
     
     @property
     def list_of_cars(self):
+        '''
+        Return list of cars the owner has registered.
+        '''
         return self.__list_of_cars
     
     def make_car_available(self, 
@@ -42,7 +48,6 @@ class Owner(Member):
         '''
         Owner adds a car to his list of available cars that people can rent.
         '''
-        #Todo: work on these conditions
         if car_nickname in Car.all:
             if car_nickname not in self.__list_of_cars:
                 self.__number_of_cars += car_increment
@@ -60,7 +65,7 @@ class Owner(Member):
                              car_nickname,
                              car_increment=1):
         '''
-        Owner makes a car on his list unavailable to rent.
+        Owner changes a car from available to unavailable to rent.
         '''
         if car_nickname in Car.all:
             if car_nickname in self.__list_of_cars:
@@ -72,7 +77,7 @@ class Owner(Member):
             print('Car is not in the system. Please add it first and make it available before trying to remove it..')
 
     def add_car(self,
-                nickname,
+                 nickname,
                  make,
                  model,
                  year,
@@ -83,7 +88,7 @@ class Owner(Member):
                  state,
                  cost_per_hour):
         '''
-        Owner creates a new car in the system, which he can then add to list of available cars to rent.
+        Owner registers a car, which he can then add to list of available cars to rent.
         '''
         self.latest_car_added = Car(nickname,
                  make,
