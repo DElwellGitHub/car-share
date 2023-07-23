@@ -23,6 +23,8 @@ class Renter(Member):
         self.__accidents = 0
         self.__current_car = None
         self.__last_car = None
+        self.__datetime_start = None
+        self.__datetime_return = None
 
         #Add one to number of unique renters
         if self.__email not in self.all:
@@ -47,16 +49,37 @@ class Renter(Member):
     def last_car(self):
         return self.__last_car
     
-    def rentCar(self,car_rented):
+    @property
+    def datetime_start(self):
+        return self.__datetime_start
+    @datetime_start.setter
+    def datetime_start(self,value):
+        self.__datetime_start = value
+
+    @property
+    def datetime_return(self):
+        return self.__datetime_return
+    @datetime_return.setter
+    def datetime_return(self,value):
+        self.__datetime_return = value
+    
+    def rentCar(self,
+                car_rented,
+                datetime_start,
+                datetime_return):
         '''
         Renter rents a car
         '''
-        self.increase_rental_count()
-        self.__current_car = car_rented
+        if datetime_start > datetime_return:
+            raise ValueError('Start date and time must be before return date and time.')
+        else:
+            self.increase_rental_count()
+            self.__current_car = car_rented
+            self.__datetime_start = datetime_start
+            self.__datetime_return = datetime_return
 
     def returnCar(self,
                   miles_driven,
-                  hours,
                   accidents):
         '''
         Renter returns the car they drove. 
@@ -69,8 +92,17 @@ class Renter(Member):
             #Increase car's count of accidents
             self.__current_car.increase_accidents(accident_increment=accidents)
         
+        #Check to make sure that renter returns car on time
+        if dt.datetime.now() > self.__datetime_return:
+            #Apply a 50 dollar penalty
+            self.update_account_balance(-50)
+            #Set return time as now
+            self.__datetime_return = dt.datetime.now()
+
         #Incrase renter's account balance by hours * cost per hour
-        self.update_account_balance(-1*hours*self.__current_car.cost_per_hour)
+        time_elapsed = self.__datetime_return - self.__datetime_start
+        hours_elapsed = time_elapsed / 360
+        self.update_account_balance(-1*hours_elapsed*self.__current_car.cost_per_hour)
 
         #Increase car's miles driven for life
         self.__current_car.increase_miles(miles_increment = miles_driven)

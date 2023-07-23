@@ -15,7 +15,8 @@ class TestCar(unittest.TestCase):
                          '135000',
                          '0',
                          'Philadelphia',
-                         'Pennsylvania')
+                         'Pennsylvania',
+                         12.5)
         
         self.car_2 = Car('Knight Rider',
                          'Toyota',
@@ -25,7 +26,8 @@ class TestCar(unittest.TestCase):
                          '95900',
                          '2',
                          'New York City',
-                         'New York')
+                         'New York',
+                         14.5)
         
     def tearDown(self):
         pass

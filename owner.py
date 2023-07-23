@@ -35,6 +35,9 @@ class Owner(Member):
         Return number of cars the owner has registered.
         '''
         return self.__number_of_cars
+    @number_of_cars.setter
+    def number_of_cars(self,value):
+        self.__number_of_cars = value
     
     @property
     def list_of_cars(self):
@@ -98,6 +101,9 @@ class Owner(Member):
                  city,
                  state,
                  cost_per_hour)
+        
+        self.number_of_cars += 1
+
     @property
     def latest_car_added(self):
         return self.__latest_car_added

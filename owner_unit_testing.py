@@ -173,6 +173,36 @@ class TestOwner(unittest.TestCase):
         #Try making a car that is already unactivate be unactivated again
         with self.assertRaises(Exception):
             self.owner_1.make_car_unavailable('Mystery Machine')
-    
+
+    def test_number_of_cars(self):
+        '''
+        Test that number of cars attribute works.
+        '''
+        self.assertEqual(0,self.owner_1.number_of_cars)
+        self.owner_1.add_car(**self.car_1_kwargs)
+        self.assertEqual(1,self.owner_1.number_of_cars)
+        self.owner_1.add_car(**self.car_2_kwargs)
+        self.assertEqual(2, self.owner_1.number_of_cars)
+
+        self.assertNotEqual(2, self.owner_2.number_of_cars)
+
+    def test_list_of_cars(self):
+        '''
+        Test that list of cars attribute works.
+        '''
+        self.assertEqual([],self.owner_1.list_of_cars)
+        self.owner_1.add_car(**self.car_1_kwargs)
+        self.owner_1.make_car_available('Mystery Machine')
+        self.assertEqual(['Mystery Machine'],self.owner_1.list_of_cars)
+        self.assertNotEqual(['Mystery Machine'],self.owner_2.list_of_cars)
+        self.owner_1.add_car(**self.car_2_kwargs)
+        self.owner_1.make_car_available('Speed Racer')
+        self.assertEqual(['Mystery Machine','Speed Racer'],self.owner_1.list_of_cars)
+        self.owner_1.make_car_unavailable('Mystery Machine')
+        self.assertEqual(['Speed Racer'],self.owner_1.list_of_cars)
+        self.owner_1.make_car_unavailable('Speed Racer')
+        self.assertEqual([],self.owner_1.list_of_cars)
+        
+
 if __name__=='__main__':
     unittest.main()
