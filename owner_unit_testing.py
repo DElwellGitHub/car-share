@@ -10,7 +10,9 @@ class TestOwner(unittest.TestCase):
 
         self.owner_1 = Owner('John',
                              'Smith',
-                             dt.date(year=1985, month=4, day=2),
+                             dt.date(year=1985, 
+                                     month=4, 
+                                     day=2),
                              'john.smith@gmail.com')
         
         self.owner_2 = Owner('Jane',

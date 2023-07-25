@@ -80,7 +80,8 @@ class Renter(Member):
 
     def returnCar(self,
                   miles_driven,
-                  accidents):
+                  accidents,
+                  real_time_return = True):
         '''
         Renter returns the car they drove. 
         '''
@@ -93,7 +94,7 @@ class Renter(Member):
             self.__current_car.increase_accidents(accident_increment=accidents)
         
         #Check to make sure that renter returns car on time
-        if dt.datetime.now() > self.__datetime_return:
+        if real_time_return and dt.datetime.now() > self.__datetime_return:
             #Apply a 50 dollar penalty
             self.update_account_balance(-50)
             #Set return time as now
@@ -101,7 +102,7 @@ class Renter(Member):
 
         #Incrase renter's account balance by hours * cost per hour
         time_elapsed = self.__datetime_return - self.__datetime_start
-        hours_elapsed = time_elapsed / 360
+        hours_elapsed = time_elapsed.total_seconds() / 3600
         self.update_account_balance(-1*hours_elapsed*self.__current_car.cost_per_hour)
 
         #Increase car's miles driven for life
