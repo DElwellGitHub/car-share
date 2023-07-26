@@ -1,8 +1,11 @@
+import sys
+sys.path.append('~/car-share')
 import unittest
 from renter import Renter
 import datetime as dt
 from dateutil.relativedelta import relativedelta
-from car import Car
+from ..car import Car
+from owner import Owner
 
 class TestRenter(unittest.TestCase):
 
@@ -38,6 +41,7 @@ class TestRenter(unittest.TestCase):
                       'cost_per_hour':14.5}
         self.car_1 = Car(**self.car_1_kwargs)
         
+        
         self.car_2_kwargs = {'nickname':'Speed Racer',
                       'make':'Toyota',
                       'model':'Prius',
@@ -49,6 +53,26 @@ class TestRenter(unittest.TestCase):
                       'state':'Massachusetts',
                       'cost_per_hour':11.5}
         self.car_2 = Car(**self.car_2_kwargs)
+
+        self.owner_1 = Owner('John',
+                             'Smith',
+                             dt.date(year=1985, 
+                                     month=4, 
+                                     day=2),
+                             'john.smith@gmail.com')
+
+        self.car_3_kwargs = {'nickname':'Speedmobile',
+                      'make':'Nissan',
+                      'model':'Leaf',
+                      'year':'2018',
+                      'color':'blue',
+                      'miles_driven_life':120000,
+                      'accidents_life':2,
+                      'city':'New York City',
+                      'state':'New York',
+                      'cost_per_hour':15.5,
+                      'owner':self.owner_1}
+        self.car_3 = Car(**self.car_3_kwargs)
 
     def tearDown(self):
         pass
@@ -96,6 +120,18 @@ class TestRenter(unittest.TestCase):
                                 real_time_return=False)
         predicted_cost = -11.5*5.5-2000
         self.assertEqual(self.renter_2.account_balance,predicted_cost)
+
+
+        self.renter_2.rentCar(self.car_3,
+                              start_time,
+                              return_time)
+        
+        self.assertEqual(self.renter_2.current_car, self.car_3)
+        self.renter_2.returnCar(miles_driven=120,
+                                accidents=0,
+                                real_time_return=False)
+        predicted_balance= 15.5*5.5
+        self.assertEqual(self.owner_1.account_balance,predicted_balance)
 
     def test_pay_account(self):
         '''

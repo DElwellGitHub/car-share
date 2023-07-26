@@ -105,6 +105,10 @@ class Renter(Member):
         hours_elapsed = time_elapsed.total_seconds() / 3600
         self.update_account_balance(-1*hours_elapsed*self.__current_car.cost_per_hour)
 
+        #Increase owner of car's account balance
+        if self.__current_car.owner:
+            self.__current_car.owner.update_account_balance(1*hours_elapsed*self.__current_car.cost_per_hour)
+        
         #Increase car's miles driven for life
         self.__current_car.increase_miles(miles_increment = miles_driven)
 

@@ -1,4 +1,5 @@
 import datetime as dt
+
 class Car:
     '''
     The Car class will be the parent class for all vehicles (EV class or GasCar class) that can be rented.
@@ -15,7 +16,8 @@ class Car:
                  accidents_life,
                  city:str,
                  state:str,
-                 cost_per_hour:float):
+                 cost_per_hour:float,
+                 owner = None):
         
         #Valid locations {state:city}
         self.__valid_locations = {'Pennsylvania':'Philadelphia',
@@ -50,6 +52,7 @@ class Car:
         self.__city = city
         self.__state = state
         self.__cost_per_hour = cost_per_hour
+        self.__owner = owner
 
         #Add one to number of unique nicknames of cars
         if self.__nickname not in self.all:
@@ -180,5 +183,10 @@ class Car:
     @property
     def cost_per_hour(self):
         return self.__cost_per_hour
+    
+    #Owner of car
+    @property
+    def owner(self):
+        return self.__owner
     
 

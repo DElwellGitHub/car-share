@@ -100,7 +100,8 @@ class Owner(Member):
                  accidents_life,
                  city,
                  state,
-                 cost_per_hour)
+                 cost_per_hour,
+                 owner = self)
         
         self.number_of_cars += 1
 
