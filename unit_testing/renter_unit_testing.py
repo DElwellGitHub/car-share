@@ -1,11 +1,14 @@
 import sys
-sys.path.append('~/car-share')
 import unittest
-from renter import Renter
+import sys
+import os
+parent_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(parent_folder_path)
+from carshare_classes.renter import Renter
 import datetime as dt
 from dateutil.relativedelta import relativedelta
-from ..car import Car
-from owner import Owner
+from carshare_classes.car import Car
+from carshare_classes.owner import Owner
 
 class TestRenter(unittest.TestCase):
 

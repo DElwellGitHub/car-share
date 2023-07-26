@@ -1,5 +1,10 @@
 import unittest
-from car import Car
+import os
+import sys
+parent_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(parent_folder_path)
+from carshare_classes.car import Car
+
 
 class TestCar(unittest.TestCase):
     

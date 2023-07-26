@@ -1,7 +1,7 @@
-from member import Member
+from carshare_classes.member import Member
 import datetime as dt
 from dateutil.relativedelta import relativedelta
-from car import Car
+from carshare_classes.car import Car
 
 class Renter(Member):
     all = []

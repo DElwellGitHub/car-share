@@ -1,7 +1,12 @@
 import unittest
 import datetime as dt
-from owner import Owner
-from car import Car
+import os
+import sys
+parent_folder_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(parent_folder_path)
+from carshare_classes.owner import Owner
+from carshare_classes.car import Car
+from carshare_classes.member import Member
 
 class TestOwner(unittest.TestCase):
     def setUp(self):
