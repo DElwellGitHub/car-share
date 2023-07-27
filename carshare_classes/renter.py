@@ -6,6 +6,7 @@ from carshare_classes.car import Car
 class Renter(Member):
     all = []
     number_of_people = 0
+    all_instances = []
     def __init__(self,
                  first_name,
                  last_name,

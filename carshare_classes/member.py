@@ -1,10 +1,12 @@
 import datetime as dt
 from dateutil.relativedelta import relativedelta
 import re
+import csv
 
 class Member:
     all = []
     number_of_people = 0
+    all_instances = []
     def __init__(self,
                  first_name,
                  last_name,
@@ -31,6 +33,7 @@ class Member:
         if self.__email not in self.all:
             self.add_list_of_all(self.__email)
             self.increment_people_count()
+            self.add_all_instances(self)
 
     @classmethod
     def number_of_people_(cls):
@@ -43,6 +46,10 @@ class Member:
     @classmethod
     def add_list_of_all(cls,email):
         cls.all.append(email)
+    
+    @classmethod
+    def add_all_instances(cls,self):
+        cls.all_instances.append(self)
 
     #Representation of member
     def __repr__(self):

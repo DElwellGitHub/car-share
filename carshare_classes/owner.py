@@ -2,10 +2,12 @@ from carshare_classes.member import Member
 import datetime as dt
 from dateutil.relativedelta import relativedelta
 from carshare_classes.car import Car
+import csv
 
 class Owner(Member):
     all = []
     number_of_people = 0
+    all_instances = []
     def __init__(self,
                  first_name,
                  last_name,
@@ -29,6 +31,21 @@ class Owner(Member):
             self.add_list_of_all(self.__email)
             self.increment_people_count(cls='Owner')
 
+    @classmethod
+    def instantiate_from_csv(cls, file_name):
+        with open(file_name, 'r') as f:
+            csvreader = csv.DictReader(f)
+            owners = list(csvreader) 
+            for o in owners:
+                Owner(
+                        first_name = o.get('first_name'),
+                        last_name = o.get('last_name'),
+                        date_of_birth = dt.date(year = int(o.get('year_birth')),
+                                                month = int(o.get('month_birth')),
+                                                day = int(o.get('day_birth'))
+                                                ),
+                        email = o.get('email')
+                )
     @property
     def number_of_cars(self):
         '''

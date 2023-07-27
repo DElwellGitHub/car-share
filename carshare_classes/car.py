@@ -1,10 +1,12 @@
 import datetime as dt
+import csv
 
 class Car:
     '''
     The Car class will be the parent class for all vehicles (EV class or GasCar class) that can be rented.
     '''
     all = []
+    all_instances = []
     number_of_cars = 0
     def __init__(self, 
                  nickname:str,
@@ -61,12 +63,35 @@ class Car:
         #Add nickname to list of all
         self.all.append(self.__nickname)
 
+        #Add instance to list of all instances
+        self.all_instances.append(self)
+
     @classmethod
     def number_of_cars_(cls):
         return cls.number_of_cars
     @classmethod
     def add_car(cls):
         cls.number_of_cars += 1
+
+    @classmethod
+    def instantiate_from_csv(cls, file_name):
+        with open(file_name, 'r') as f:
+            csvreader = csv.DictReader(f)
+            cars = list(csvreader) 
+            for c in cars:
+                Car(
+                        nickname = c.get('nickname'),
+                        make = c.get('make'),
+                        model = c.get('model'),
+                        year = c.get('year'),
+                        color = c.get('color'),
+                        miles_driven_life = int(c.get('miles_driven_life')),
+                        accidents_life = int(c.get('accidents_life')),
+                        city = c.get('city'),
+                        state = c.get('state'),
+                        cost_per_hour = c.get('cost_per_hour')
+                )
+            
     
     #Representation of car
     def __repr__(self):
