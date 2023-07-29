@@ -51,6 +51,22 @@ class Member:
     def add_all_instances(cls,self):
         cls.all_instances.append(self)
 
+    @classmethod
+    def instantiate_from_csv(cls, file_name):
+        with open(file_name, 'r') as f:
+            csvreader = csv.DictReader(f)
+            members = list(csvreader) 
+            for m in members:
+                cls(
+                        first_name = m.get('first_name'),
+                        last_name = m.get('last_name'),
+                        date_of_birth = dt.date(year = int(m.get('year_birth')),
+                                                month = int(m.get('month_birth')),
+                                                day = int(m.get('day_birth'))
+                                                ),
+                        email = m.get('email')
+                )
+
     #Representation of member
     def __repr__(self):
         '''
