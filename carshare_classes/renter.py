@@ -4,6 +4,10 @@ from dateutil.relativedelta import relativedelta
 from carshare_classes.car import Car
 
 class Renter(Member):
+    '''
+    Renter class is a child class of Member.
+    A renter will rent an owner's car.
+    '''
     all = []
     number_of_people = 0
     all_instances = []
@@ -16,6 +20,8 @@ class Renter(Member):
                          last_name,
                          date_of_birth,
                          email)
+        
+        #Attributes
         self.__first_name = first_name
         self.__last_name = last_name
         self.__date_of_birth = date_of_birth
@@ -34,6 +40,9 @@ class Renter(Member):
         
     @property
     def accidents(self):
+        '''
+        Return number of accidents that the renter has had.
+        '''
         return self.__accidents
 
     def increase_accidents(self,accidents_increment=1):
@@ -44,32 +53,50 @@ class Renter(Member):
 
     @property
     def current_car(self):
+        '''
+        Return current car that the renter has taken out.
+        '''
         return self.__current_car
     
     @property
     def last_car(self):
+        '''
+        Return the last car that the renter has taken out and returned.
+        '''
         return self.__last_car
     
     @property
     def datetime_start(self):
+        '''
+        Return the date and time at which the renter will take out the car.
+        '''
         return self.__datetime_start
     @datetime_start.setter
     def datetime_start(self,value):
+        '''
+        Set the date and time at which the renter will take out the car.
+        '''
         self.__datetime_start = value
 
     @property
     def datetime_return(self):
+        '''
+        Return the date and time at which the renter will return the car.
+        '''
         return self.__datetime_return
     @datetime_return.setter
     def datetime_return(self,value):
+        '''
+        Set the date and time at which the renter will take out the car.
+        '''
         self.__datetime_return = value
     
-    def rentCar(self,
+    def rent_car(self,
                 car_rented,
                 datetime_start,
                 datetime_return):
         '''
-        Renter rents a car
+        Renter rents a car.
         '''
         if datetime_start > datetime_return:
             raise ValueError('Start date and time must be before return date and time.')
@@ -79,12 +106,12 @@ class Renter(Member):
             self.__datetime_start = datetime_start
             self.__datetime_return = datetime_return
 
-    def returnCar(self,
+    def return_car(self,
                   miles_driven,
                   accidents,
                   real_time_return = True):
         '''
-        Renter returns the car they drove. 
+        Renter returns the car they had rented
         '''
         if accidents > 0:
             #Increase renter's count of accidents

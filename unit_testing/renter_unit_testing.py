@@ -80,7 +80,6 @@ class TestRenter(unittest.TestCase):
     def tearDown(self):
         pass
 
-    #Todo - determine what to test and create tests
     def test_rent_return_car(self):
         '''
         Test renting and returning acar.
@@ -88,7 +87,7 @@ class TestRenter(unittest.TestCase):
         self.assertNotEqual(self.renter_1.current_car,self.car_1)
         start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
         return_time = dt.datetime(year=2023,month=7,day=1,hour=15,minute=30)
-        self.renter_1.rentCar(self.car_1,
+        self.renter_1.rent_car(self.car_1,
                               start_time,
                               return_time)
         self.assertEqual(self.renter_1.current_car,self.car_1)
@@ -96,7 +95,7 @@ class TestRenter(unittest.TestCase):
         self.assertEqual(self.renter_1.datetime_return,return_time)
         self.assertNotEqual(self.renter_2.current_car,self.car_1)
         
-        self.renter_1.returnCar(miles_driven=100,
+        self.renter_1.return_car(miles_driven=100,
                                  accidents=0,
                                 real_time_return=False)
         predicted_cost = -14.5*3
@@ -105,32 +104,33 @@ class TestRenter(unittest.TestCase):
         start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
         return_time = dt.datetime(year=2023,month=6,day=30,hour=15,minute=30)
 
-        #Test with a start time after return time.
         with self.assertRaises(ValueError):
+            #Test with a start time after return time.
+            
             start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
             return_time = dt.datetime(year=2023,month=6,day=30,hour=15,minute=30)
-            self.renter_2.rentCar(self.car_2,
+            self.renter_2.rent_car(self.car_2,
                                 start_time,
                                 return_time)
 
         start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
         return_time = dt.datetime(year=2023,month=7,day=1,hour=18,minute=0)
-        self.renter_2.rentCar(self.car_2,
+        self.renter_2.rent_car(self.car_2,
                               start_time,
                               return_time)
-        self.renter_2.returnCar(miles_driven=200,
+        self.renter_2.return_car(miles_driven=200,
                                 accidents=1,
                                 real_time_return=False)
         predicted_cost = -11.5*5.5-2000
         self.assertEqual(self.renter_2.account_balance,predicted_cost)
 
 
-        self.renter_2.rentCar(self.car_3,
+        self.renter_2.rent_car(self.car_3,
                               start_time,
                               return_time)
         
         self.assertEqual(self.renter_2.current_car, self.car_3)
-        self.renter_2.returnCar(miles_driven=120,
+        self.renter_2.return_car(miles_driven=120,
                                 accidents=0,
                                 real_time_return=False)
         predicted_balance= 15.5*5.5
@@ -143,11 +143,11 @@ class TestRenter(unittest.TestCase):
         start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
         return_time = dt.datetime(year=2023,month=7,day=1,hour=18,minute=0)
 
-        self.renter_1.rentCar(self.car_1,
+        self.renter_1.rent_car(self.car_1,
                               start_time,
                               return_time)
         
-        self.renter_1.returnCar(miles_driven=200,
+        self.renter_1.return_car(miles_driven=200,
                                 accidents=1,
                                 real_time_return=False)
         predicted_cost = -14.5*5.5-2000

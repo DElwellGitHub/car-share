@@ -51,13 +51,13 @@ if __name__=='__main__':
     start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
     return_time = dt.datetime(year=2023,month=7,day=1,hour=18,minute=0)
 
-    renter_1.rentCar(car_rented =owner_1.latest_car_added,
+    renter_1.rent_car(car_rented =owner_1.latest_car_added,
                       datetime_start = start_time,
                        datetime_return = return_time)
     print(f'{renter_1.first_name} {renter_1.last_name} rented {renter_1.current_car}.nickname')
 
     #Have a renter return it
-    renter_1.returnCar(miles_driven=140,
+    renter_1.return_car(miles_driven=140,
                        accidents=0,
                        real_time_return = False)
     print(f'{renter_1.first_name} {renter_1.last_name} returned {renter_1.last_car}.')

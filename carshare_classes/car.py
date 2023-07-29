@@ -3,7 +3,8 @@ import csv
 
 class Car:
     '''
-    The Car class will be the parent class for all vehicles (EV class or GasCar class) that can be rented.
+    The Car class is meant to define a car object, which can be owned by owner object,
+    and rented by renter object.
     '''
     all = []
     all_instances = []
@@ -26,21 +27,29 @@ class Car:
                            'New York':'New York City',
                            'Massachusetts':'Boston'}
         
-        #Nickname character limit
+        #Car nickname must be 30 characters or less
         self.__nickname_char_limit = 30
         self.__nickname_assert = f'Nickname must be {self.__nickname_char_limit} characters or less.'
-        self.__name_used_assert = 'Nickname already used for another car'
-
-        #Oldest car year accepted
-        self.__oldest_car_year = 1980
-
-        #Assertions
         assert len(nickname)<=self.__nickname_char_limit, self.__nickname_assert
+        
+        #Car nickname must be unique
+        self.__name_used_assert = 'Nickname already used for another car'
         assert nickname not in self.all, self.__name_used_assert
+        
+        #Car must be 1980 model or later
+        self.__oldest_car_year = 1980
         assert int(year)>=self.__oldest_car_year, 'Car is too old.'
+
+        #Car must have a valid year value (i.e. must be next year or less)
         assert int(year)<=int(dt.datetime.now().strftime('%Y'))+1, 'Car year is in the future. Not possible!'
+
+        #Number of miles driven for life of car must be 0 or greater
         assert int(miles_driven_life) >= 0, 'Miles driven cannot be negative.'
+        
+        #Number of accidents must be 0 or greater
         assert int(accidents_life) >=0, 'Accidents cannot be negative.'
+
+        #City of car must be a valid city (i.e Boston, Philadelphia, New York City)
         assert city in self.__valid_locations[state], 'Sorry, car rental not available in this city/state.'
 
         #Attributes
@@ -68,13 +77,22 @@ class Car:
 
     @classmethod
     def number_of_cars_(cls):
+        '''
+        Return number of total car instances.
+        '''
         return cls.number_of_cars
     @classmethod
     def add_car(cls):
+        '''
+        Add a car instance.
+        '''
         cls.number_of_cars += 1
 
     @classmethod
     def instantiate_from_csv(cls, file_name):
+        '''
+        Instantiate a multiple cars from a csv file.
+        '''
         with open(file_name, 'r') as f:
             csvreader = csv.DictReader(f)
             cars = list(csvreader) 
@@ -96,16 +114,21 @@ class Car:
     #Representation of car
     def __repr__(self):
         '''
-        Define how we represent car when it is called.
+        Define how we represent car when car instance is called.
         '''
         return f'''Car: {self.nickname}, {self.make}, {self.model}, {self.year}, {self.color}, miles driven: {self.miles_driven_life}, accidents: {self.accidents_life}, location: {self.city}, {self.state}'''
     
-    #Nickname of car
     @property
     def nickname(self):
+        '''
+        Return nickname of car.
+        '''
         return self.__nickname
     @nickname.setter
     def nickname(self, value):
+        '''
+        Change nickname of car.
+        '''
         if len(value)> self.__nickname_char_limit:
             raise Exception(self.__nickname_assert)
         elif value in self.all:
@@ -115,88 +138,125 @@ class Car:
             self.__nickname = value
             self.all.append(value)
     
-    #Make of car
     @property
     def make(self):
+        '''
+        Return make of car.
+        '''
         return self.__make
     
-    #Model of car
     @property
     def model(self):
+        '''
+        Return model of car.
+        '''
         return self.__model
     
-    #Year of car
     @property
     def year(self):
+        '''
+        Return year of car.
+        '''
         return self.__year
 
-    #Color of car
     @property
     def color(self):
+        '''
+        Return color car.
+        '''
         return self.__color
     @color.setter
     def color(self, value):
+        '''
+        Change color of car.
+        '''
         self.__color = value
 
-    #Miles Driven Life of car
     @property
     def miles_driven_life(self):
+        '''
+        Return miles driven for life of car.
+        '''
         return self.__miles_driven_life
     @miles_driven_life.setter
     def miles_driven_life(self, value):
+        '''
+        Change miles driven for life of car.
+        '''
         if type(value) is not int or value < 0:
             raise ValueError('Miles incrememnt must be positive number value')
         else:
             self.__miles_driven_life = value
     def increase_miles(self,miles_increment):
+        '''
+        Change miles driven for life of car by an increment.
+        '''
         if (type(miles_increment) is not int 
             and type(miles_increment) is not float) or miles_increment < 0:
             raise ValueError('Miles incrememnt must be positive number value')
         else:
             self.__miles_driven_life += miles_increment 
 
-    #Accidents Life of car
     @property
     def accidents_life(self):
+        '''
+        Return number of accidents for life of car.
+        '''
         return self.__accidents_life
     @accidents_life.setter
     def accidents_life(self, value):
+        '''
+        Change number of accidents for life of car.
+        '''
         if type(value) is not int or value < 0:
             raise ValueError('Must set number of accidents to integer value of 0 or greater.')
         else:
             self.__accidents_life = value
     def increase_accidents(self,accident_increment=1):
         '''
-        Record an increase of the number of accidents.
+        Change number of accidents for life of car by an increment.
         '''
         if accident_increment <= 0 or type(accident_increment) is not int:
             raise ValueError('Must choose an integer value of 1 or greater')
         else:
             self.__accidents_life += accident_increment
     
-    #City
     @property
     def city(self):
+        '''
+        Return city of car.
+        '''
         return self.__city
     @city.setter
     def city(self, value):
+        '''
+        Change city of car. 
+        It must be in one of the valid cities (Boston, Philadelphia, New York City).
+        If city is changed, then state is changed too.
+        '''
         if value not in self.__valid_locations.values():
             raise Exception('Sorry, car rental not available in this city')
         else:
             self.__city = value
-            #If you change city, you must change state too
             key_list = list(self.__valid_locations.keys())
             val_list = list(self.__valid_locations.values())
             position = val_list.index(value)
             new_state = key_list[position]
             self.__state = new_state
     
-    #State
     @property
     def state(self):
+        '''
+        Return city of car.
+        '''
         return self.__state
     @state.setter
     def state(self, value):
+        '''
+        Change state of car. 
+        It must be in one of the valid states(Massachusetts, Pennsylvania, New York).
+        If state is changed, then city is changed too.
+        '''
         if value not in self.__valid_locations.keys():
             raise Exception('Sorry, car rental not available in this state')
         else:
@@ -204,13 +264,17 @@ class Car:
             #If you change state, you must change city too
             self.__city = self.__valid_locations[self.__state]
 
-    #Cost per hour
     @property
     def cost_per_hour(self):
+        '''
+        Return cost to rent per hour of car.
+        '''
         return self.__cost_per_hour
     
-    #Owner of car
     @property
     def owner(self):
+        '''
+        Return owner of car.
+        '''
         return self.__owner
     

@@ -38,8 +38,9 @@ class TestCar(unittest.TestCase):
         pass
 
     def test_change_nickname(self):
-        
-        #Simple name change testing
+        '''
+        Simple nickname change testing.
+        '''
         orig_nickname_car_1 = self.car_1.nickname
         new_name_car_1 = 'Speed Racer'
         self.car_1.nickname = new_name_car_1
@@ -52,18 +53,22 @@ class TestCar(unittest.TestCase):
         self.assertEqual(self.car_2.nickname, new_name_car_2)
         self.assertNotEqual(self.car_2.nickname, orig_nickname_car_2)
 
-
-        #Test character limit
         with self.assertRaises(Exception):
+            '''
+            Test character limits of nickname
+            '''
             self.car_2.nickname = 'ThisNameisTooManyCharactersLongforNickname!'
 
-        #Try changing to a name that is already used
         with self.assertRaises(Exception):
+            '''
+            Try changing to a nickname that is already used.
+            '''
             self.car_1.nickname = 'My Fav Car'
 
     def test_change_color(self):
-        
-        #Simple color change testing
+        '''
+        Try changing color of car.
+        '''
         orig_color_car_1 = self.car_1.color
         new_color_car_1 = 'Green'
         self.car_1.color = new_color_car_1
@@ -71,7 +76,9 @@ class TestCar(unittest.TestCase):
         self.assertNotEqual(self.car_1.color,orig_color_car_1)
 
     def test_change_miles(self):
-        #Simple mile change
+        '''
+        Try changing miles for car.
+        '''
         orig_miles_car_1 = self.car_1.miles_driven_life
         new_miles_car_1 = 230000
         self.car_1.miles_driven_life=new_miles_car_1
@@ -100,7 +107,9 @@ class TestCar(unittest.TestCase):
 
 
     def test_increase_miles(self):
-        #Simple miles increase
+        '''
+        Try increasing miles for car.
+        '''
         orig_miles_car_1 = self.car_1.miles_driven_life
         miles_added_car_1 = 200
         self.car_1.increase_miles(miles_added_car_1)
@@ -133,7 +142,9 @@ class TestCar(unittest.TestCase):
             self.car_1.increase_miles(miles_added_car_1)
         
     def test_change_accidents(self):
-        #Simple accidents change
+        '''
+        Change accidents for car.
+        '''
         orig_accidents_car_1 = self.car_1.accidents_life
         new_accidents_car_1 = 5
         self.car_1.accidents_life=new_accidents_car_1
@@ -165,7 +176,9 @@ class TestCar(unittest.TestCase):
 
 
     def increase_accidents(self):
-        #Simple accidents increase
+        '''
+        Incremental increase of accidents for a car.
+        '''
         orig_accidents_car_1 = self.car_1.accidents_life
         accidents_added_car_1 = 4
         self.car_1.increase_accidents(accidents_added_car_1)
@@ -198,7 +211,9 @@ class TestCar(unittest.TestCase):
             self.car_1.increase_miles(accidents_added_car_1)
 
     def change_city(self):
-        #Simple city change
+        '''
+        Try changing city for car.
+        '''
         orig_city = self.car_1.city
         new_city = 'New York City'
         self.car_1.city = new_city
@@ -217,7 +232,9 @@ class TestCar(unittest.TestCase):
             self.car_1.city = new_city
 
     def change_state(self):
-        #Simple state change
+        '''
+        Try changing state of car.
+        '''
         new_state = 'New York'
         self.car_1.state = new_state
         self.assertEqual(self.car_1.city, new_state)
@@ -233,7 +250,9 @@ class TestCar(unittest.TestCase):
             self.car_1.stat = new_state
 
     def test_all_attribute(self):
-        #Test that "all" attribute works fine
+        '''
+        Test that "all" attribute works fine.
+        '''
         self.assertEqual(Car.all, self.car_1.all,self.car_2.all)
 
     def test_num_cars(self):

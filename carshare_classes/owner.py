@@ -5,6 +5,10 @@ from carshare_classes.car import Car
 import csv
 
 class Owner(Member):
+    '''
+    Owner class is a child class of Member.
+    An owner will allow a renter to rent their car.
+    '''
     all = []
     number_of_people = 0
     all_instances = []
@@ -17,6 +21,7 @@ class Owner(Member):
                          last_name,
                          date_of_birth,
                          email)
+        #Attributes
         self.__first_name = first_name
         self.__last_name = last_name
         self.__date_of_birth = date_of_birth
@@ -109,4 +114,7 @@ class Owner(Member):
 
     @property
     def latest_car_added(self):
+        '''
+        Return the latest car that the owner has registered.
+        '''
         return self.__latest_car_added
