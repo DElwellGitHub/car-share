@@ -50,10 +50,10 @@ class Car:
         self.__year = int(year)
         self.__color = color
         self.__miles_driven_life = int(miles_driven_life)
-        self.__accidents_life = accidents_life
+        self.__accidents_life = int(accidents_life)
         self.__city = city
         self.__state = state
-        self.__cost_per_hour = cost_per_hour
+        self.__cost_per_hour = float(cost_per_hour)
         self.__owner = owner
 
         #Add one to number of unique nicknames of cars
@@ -89,7 +89,7 @@ class Car:
                         accidents_life = int(c.get('accidents_life')),
                         city = c.get('city'),
                         state = c.get('state'),
-                        cost_per_hour = c.get('cost_per_hour')
+                        cost_per_hour = float(c.get('cost_per_hour'))
                 )
             
     

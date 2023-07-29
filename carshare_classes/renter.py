@@ -103,7 +103,7 @@ class Renter(Member):
 
         #Incrase renter's account balance by hours * cost per hour
         time_elapsed = self.__datetime_return - self.__datetime_start
-        hours_elapsed = time_elapsed.total_seconds() / 3600
+        hours_elapsed = float(time_elapsed.total_seconds()) / 3600
         self.update_account_balance(-1*hours_elapsed*self.__current_car.cost_per_hour)
 
         #Increase owner of car's account balance

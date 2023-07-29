@@ -28,9 +28,6 @@ def owner_add_all_cars(owner_var):
         for row in csv_reader:
             owner_var.add_car(**row)
 
-
-        
-
 if __name__=='__main__':    
     #Instantiate renters from csv
     instantiate_members(file_path = '/home/ubuntu/car-share/csv',
@@ -47,10 +44,21 @@ if __name__=='__main__':
     owner_add_all_cars(owner_1)
 
     #Make a car available to rent
-    owner_1.make_car_available(owner_1.car_1.nickname)
-    print(f'{owner_1.first_name} {owner_1.last_name} made their car {owner_1.car_1.name} available to rent.')
+    owner_1.make_car_available(owner_1.latest_car_added.nickname)
+    print(f'{owner_1.first_name} {owner_1.last_name} made their car "{owner_1.latest_car_added.nickname}" available to rent.')
 
     #Have a renter rent it
-    renter_3.rent_car()
+    start_time = dt.datetime(year=2023,month=7,day=1,hour=12,minute=30)
+    return_time = dt.datetime(year=2023,month=7,day=1,hour=18,minute=0)
+
+    renter_1.rentCar(car_rented =owner_1.latest_car_added,
+                      datetime_start = start_time,
+                       datetime_return = return_time)
+    print(f'{renter_1.first_name} {renter_1.last_name} rented {renter_1.current_car}.nickname')
 
     #Have a renter return it
+    renter_1.returnCar(miles_driven=140,
+                       accidents=0,
+                       real_time_return = False)
+    print(f'{renter_1.first_name} {renter_1.last_name} returned {renter_1.last_car}.')
+    print(f'{renter_1.first_name} {renter_1.last_name} has an account balance now of {renter_1.account_balance}')
