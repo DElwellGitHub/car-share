@@ -1,4 +1,4 @@
-## Car share system
+## <i>Quick Car</i> car share service
 Purpose of this project is to use object oriented programming to create a car share system.
 
 ### Classes
